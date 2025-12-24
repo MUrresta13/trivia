@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christmas Trivia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="bgm" src="assets/Trivia.mp3" preload="auto" loop></audio>
+
+  <!-- INTRO -->
+  <main id="introScreen" class="screen intro active">
+    <button id="startChallengeBtn" class="btn primary big">Start Challenge</button>
+  </main>
+
+  <!-- TITLE -->
+  <main id="titleScreen" class="screen title">
+    <div class="card">
+      <h1>Christmas Trivia</h1>
+      <p class="sub">7 questions. 15 seconds each. Less than 4 misses to win.</p>
+
+      <div class="rules">
+        <div class="rule"><span>⏱️</span><b>15 seconds</b> per question.</div>
+        <div class="rule"><span>❌</span><b>Wrong</b> or <b>too slow</b> = miss.</div>
+        <div class="rule"><span>🎯</span><b>Randomized</b> from 100 questions.</div>
+        <div class="rule"><span>🏁</span><b>Win</b> with 0–3 misses.</div>
+      </div>
+
+      <button id="playBtn" class="btn primary">Play Game</button>
+      <button id="muteBtn" class="btn ghost">Music: Off</button>
+      <small class="hint">If music doesn’t start on iPhone, tap Start Challenge again.</small>
+    </div>
+  </main>
+
+  <!-- GAME -->
+  <main id="gameScreen" class="screen game">
+    <header class="hud">
+      <div class="pill"><span class="label">Question</span><span id="qCount" class="value">1/7</span></div>
+      <div class="pill"><span class="label">Time</span><span id="timeLeft" class="value">15</span></div>
+      <div class="pill"><span class="label">Misses</span><span id="misses" class="value">0/3</span></div>
+      <button id="restartBtn" class="btn ghost small">Restart</button>
+    </header>
+
+    <section class="wrap">
+      <div class="card wide">
+        <div id="questionText" class="question">Loading…</div>
+        <div id="answers" class="answers"></div>
+
+        <div class="footerLine">
+          <div id="feedback" class="feedback">Pick an answer.</div>
+          <div class="progress">
+            <div class="bar">
+              <div id="timeBar" class="fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- WIN -->
+  <div id="winModal" class="modal" aria-hidden="true">
+    <div class="modalCard">
+      <h2>Victory</h2>
+      <p>You cleared the trivia challenge.</p>
+
+      <div class="codeBox">
+        <div class="codeLabel">PASSCODE</div>
+        <div class="codeText">THESTARWASSILENT</div>
+      </div>
+
+      <div class="modalButtons">
+        <button id="copyBtn" class="btn primary">Copy Code</button>
+        <button id="playAgainBtn" class="btn ghost">Play Again</button>
+      </div>
+
+      <div id="copyStatus" class="copyStatus"></div>
+    </div>
+  </div>
+
+  <!-- LOSE -->
+  <div id="loseModal" class="modal" aria-hidden="true">
+    <div class="modalCard">
+      <h2>Game Over</h2>
+      <p id="loseReason">Too many misses.</p>
+      <div class="modalButtons">
+        <button id="tryAgainBtn" class="btn primary">Try Again</button>
+        <button id="backBtn" class="btn ghost">Back to Title</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
