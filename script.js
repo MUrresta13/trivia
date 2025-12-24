@@ -224,12 +224,22 @@ if (QUESTION_POOL.length !== 100) {
 }
 
 // -------------------- Utility --------------------
+
+function hideAllModals(){
+  hide(winModal);
+  hide(loseModal);
+  copyStatus.textContent = "";
+}
+
+
 function showScreen(screen){
+  hideAllModals(); // ALWAYS clear popups when changing screens
   introScreen.classList.remove("active");
   titleScreen.classList.remove("active");
   gameScreen.classList.remove("active");
   screen.classList.add("active");
 }
+
 function show(el){ el.classList.add("show"); el.setAttribute("aria-hidden","false"); }
 function hide(el){ el.classList.remove("show"); el.setAttribute("aria-hidden","true"); }
 
@@ -280,18 +290,16 @@ function lockAnswers(value){
 
 // -------------------- Game Flow --------------------
 function startRun(){
-  hide(winModal);
-  hide(loseModal);
-
+  hideAllModals();
   misses = 0;
   qIndex = 0;
 
-  // pick 7 random from 100
   runQuestions = shuffle(QUESTION_POOL).slice(0, QUESTIONS_PER_RUN);
 
   showScreen(gameScreen);
   loadQuestion();
 }
+
 
 function loadQuestion(){
   lockAnswers(true);
@@ -428,11 +436,21 @@ copyBtn.addEventListener("click", async () => {
   }
 });
 
-playAgainBtn.addEventListener("click", () => startRun());
+playAgainBtn.addEventListener("click", () => {
+  hideAllModals();
+  startRun();
+});
 
-tryAgainBtn.addEventListener("click", () => startRun());
+tryAgainBtn.addEventListener("click", () => {
+  hideAllModals();
+  startRun();
+});
 
-backBtn.addEventListener("click", () => showScreen(titleScreen));
+backBtn.addEventListener("click", () => {
+  hideAllModals();
+  showScreen(titleScreen);
+});
+
 
 // Boot
 showScreen(introScreen);
