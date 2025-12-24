@@ -3,7 +3,7 @@
 const PASSCODE = "THESTARWASSILENT";
 const QUESTIONS_PER_RUN = 7;
 const TIME_PER_Q = 15;           // seconds
-const MAX_MISSES = 3;            // must finish with <= 3 misses
+const MAX_MISSES = 4;            // must finish with <= 3 misses
 
 // Screens
 const introScreen = document.getElementById("introScreen");
@@ -262,7 +262,7 @@ function shuffle(arr){
 function updateHUD(){
   qCountEl.textContent = `${qIndex+1}/${QUESTIONS_PER_RUN}`;
   timeLeftEl.textContent = String(timeLeft);
-  missesEl.textContent = `${misses}/${MAX_MISSES}`;
+  missesEl.textContent = `${misses}/4`;
 }
 
 function setFeedback(text, kind=""){
@@ -353,12 +353,15 @@ function onMiss(reason){
   updateHUD();
   setFeedback(`${reason} Miss added.`, "bad");
 
+  // Lose immediately on the 3rd miss
   if(misses > MAX_MISSES){
     endLose("Too many misses.");
     return;
   }
+
   nextStep(false);
 }
+
 
 function nextStep(){
   setTimeout(() => {
