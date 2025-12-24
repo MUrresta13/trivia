@@ -1,5 +1,6 @@
 "use strict";
 
+const LOSE_AT_MISSES = 4; // 4th miss = lose
 const PASSCODE = "THESTARWASSILENT";
 const QUESTIONS_PER_RUN = 7;
 const TIME_PER_Q = 15;           // seconds
@@ -361,8 +362,8 @@ function onMiss(reason){
   updateHUD();
   setFeedback(`${reason} Miss added.`, "bad");
 
-  // Lose immediately on the 3rd miss
-  if(misses > MAX_MISSES){
+  // Lose immediately on the 4th miss (including if it's the last question)
+  if (misses >= LOSE_AT_MISSES){
     endLose("Too many misses.");
     return;
   }
@@ -374,10 +375,17 @@ function onMiss(reason){
 function nextStep(){
   setTimeout(() => {
     qIndex += 1;
-    if(qIndex >= QUESTIONS_PER_RUN){
-      endWin();
+
+    // If we just finished the 7th question, decide win/lose here too.
+    if (qIndex >= QUESTIONS_PER_RUN){
+      if (misses >= LOSE_AT_MISSES){
+        endLose("Too many misses.");
+      } else {
+        endWin();
+      }
       return;
     }
+
     loadQuestion();
   }, 850);
 }
