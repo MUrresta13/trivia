@@ -178,15 +178,15 @@ h1{
   align-items:center;
   justify-content:center;
   padding: 18px;
-  background: rgba(0,0,0,.58);
+  background: #000; /* not transparent */
   z-index: 10;
 }
 .modal.show{display:flex}
 .modalCard{
   width:min(520px, 92vw);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.14));
-  border:1px solid rgba(255,255,255,.12);
+  background: #0b1020; /* solid */
+  border:1px solid rgba(255,255,255,.18);
   box-shadow: var(--shadow);
   padding: 18px;
 }
